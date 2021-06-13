@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a003351a-b8b8-4a12-b6b8-c7ba10914478" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="ddff7b79-992b-4400-a6a2-ea27ddfc3d17" >
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="root" database="integration" />
+	</db:config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="0aa9ee8e-9001-42e1-a023-465bd35a39f7" >
+		<file:connection workingDir="C:\Users\lenovo\AnypointStudio\7.8\dbconnection\FIle" />
+	</file:config>
+	<db:config name="Database_Config1" doc:name="Database Config" doc:id="0788a0b8-2837-4626-a7d2-7cf1694d2f82" >
+		<db:oracle-connection host="localhost" user="SYSTEM" password="admin" serviceName="orcl" />
+	</db:config>
+	<file:config name="File_Config1" doc:name="File Config" doc:id="a33baed3-fcf4-49f6-9588-06cd45776fa2" >
+		<file:connection />
+	</file:config>
+	<flow name="dbconnectionFlow" doc:id="a90d2f19-527c-4b2f-81ef-20c497b0dc4f" >
+		<http:listener doc:name="Listener" doc:id="c0b28cd0-0995-4818-aa08-5b42f962bcb2" config-ref="HTTP_Listener_config" path="/dbconnection"/>
+		<logger level="INFO" doc:name="Logger" doc:id="45eb813d-f482-40bd-9a23-0d394bead2b7" message="flow initiated...."/>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="4d9bfa31-a433-4d48-b9c0-c71de2629419" />
+		<set-variable value='#[output applicatin/json&#10;---&#10;{name: "dbconnection",&#10;transaction: "outbound",&#10;operation: "account creation",&#10;parentcorrelationId: correlationId&#10;}]' doc:name="Set Variable" doc:id="34c4a773-7a23-46ca-adf2-56501ff6218f" variableName="useCase"/>
+		<ee:transform doc:name="Transform Message" doc:id="c1a771ca-0a6f-4212-bcc1-6636670e2828" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<db:select doc:name="Select" doc:id="be67c94d-2502-4525-901b-ae3db9e845df" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from account ]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="b1772058-2058-4b04-b85c-72c1d42bd1b7">
+						<ee:message>
+							<ee:set-payload><![CDATA[%dw 2.0
+import * from dw::core::Arrays
+output application/json
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	accountId: payload01.accountId,
+	gender: payload01.gender,
+	maritalStatus: payload01.maritalStatus,
+	phone: payload01.phone,
+	name: payload01.name,
+	email: payload01.email
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+		<batch:job jobName="dbconnectionBatch_Job" doc:id="3c12ccf1-a8c4-47db-a0ec-3f7b48c03372" >
+			<batch:process-records >
+				<batch:step name="Batch_Step" doc:id="40ea4e95-54a0-4504-a77e-e98357bbf31e" >
+					<set-variable doc:name="Set Variable" doc:id="9483a1ba-56e4-4af2-98f3-1f14168cf3e5" variableName="batch" value="#[output application/json&#10;---&#10;{&#10;sourcepath: attributes.path,&#10;sourceFilename: attributes.filename,&#10;flowname: vars.useCase.name,&#10;parentCorrelationid: vars.useCase.parentcorrelationId&#10;}]" />
+				</batch:step>
+				<batch:step name="Batch_Step1" doc:id="972b9668-e014-4899-8742-e359581c8c7f" >
+					<logger level="INFO" doc:name="Logger" doc:id="5cd44911-b1fc-4df6-a6bd-78ba23bc3c69" message="batch step2 initiated...."/>
+					<try doc:name="Try" doc:id="ef196c06-b2b8-41e8-a22e-35d48955f6e3" >
+						<db:update doc:name="Update" doc:id="129097c3-f0b0-4165-a2b3-0fba98b471f7" config-ref="Database_Config1">
+						<db:sql><![CDATA[update Accounts SET ACCOUNT_ID='1000' where NAME='KIran' ]]></db:sql>
+					</db:update>
+					</try>
+				</batch:step>
+			</batch:process-records>
+			<batch:on-complete >
+				<ee:transform doc:name="Transform Message" doc:id="b271e241-3571-4c07-b704-a8d20f67366a" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</batch:on-complete>
+		</batch:job>
+		<flow-ref doc:name="Flow Reference" doc:id="eeb355a1-26e1-46be-9d24-76a5cb9cabb0" name="dbconnectionFlow1" />
+	</flow>
+	<flow name="dbconnectionFlow1" doc:id="66a22635-ddd9-4c00-a29d-adbe3e9300d6" >
+		<set-variable value="#[payload.name]" doc:name="Set Variable" doc:id="81cc874a-994a-4190-bd67-f717fbaca64e" variableName="scattergather"/>
+		<scatter-gather doc:name="Scatter-Gather" doc:id="574bb919-3135-4469-9346-02abd52e1491" >
+			<route >
+				<async doc:name="Async" doc:id="688c73ed-6dae-41df-96a7-0464a1343523" >
+					<set-payload value="#[payload]" doc:name="Set Payload" doc:id="9c04eaad-480e-41a7-b56d-c805afe40250" />
+				</async>
+			</route>
+			<route >
+				<set-payload value="#[payload]" doc:name="Set Payload" doc:id="19c249a7-e312-4958-907a-2a1853b6bbf8" />
+				<logger level="INFO" doc:name="Logger" doc:id="061e8940-1d1a-4dd5-879b-f1adb9c5ce9d" message="flowended"/>
+			</route>
+		</scatter-gather>
+	</flow>
+</mule>

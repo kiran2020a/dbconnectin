@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="meta" format="json">
+      <types:shape format="weave" example="examples/dbconnection-1.csv"><![CDATA[%dw 2.0
+
+type meta = Array<{|  accountId: Number {"typeId": "int"},   gender: String,   maritalStatus: String,   phone: String,   name: String,   " dateOfBirth": Null,   email: String|}> {"example": "[{\\\"accountId\\\":1001,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"123457892\\\",\\\"name\\\":\\\"kiran\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"kiran@gmail.com\\\"},{\\\"accountId\\\":1002,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"12345789\\\",\\\"name\\\":\\\"kirank\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"kiranK@gmail.com\\\"},{\\\"accountId\\\":1003,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"1234578\\\",\\\"name\\\":\\\"kirankU\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"kiranKU@gmail.com\\\"},{\\\"accountId\\\":1004,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"123457\\\",\\\"name\\\":\\\"kirankUM\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"kiranKU@gmail.com\\\"},{\\\"accountId\\\":1005,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"12345\\\",\\\"name\\\":\\\"kirankUMA\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"kiranKUM@gmail.com\\\"},{\\\"accountId\\\":1006,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"12345\\\",\\\"name\\\":\\\"kirankUMAR\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"kiranKUMAR@gmail.com\\\"},{\\\"accountId\\\":1007,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"12345\\\",\\\"name\\\":\\\"kirankUMAR\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"kiranKUMAR@gmail.com\\\"},{\\\"accountId\\\":1008,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"12345\\\",\\\"name\\\":\\\"kirankUMAR\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"kiranKUMAR@gmail.com\\\"},{\\\"accountId\\\":1009,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"12345\\\",\\\"name\\\":\\\"kirankUMAR J\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"JkiranKUMAR@gmail.com\\\"},{\\\"accountId\\\":1010,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"12345\\\",\\\"name\\\":\\\"kirankUMAR J\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"JkiranKUMAR@gmail.com\\\"},{\\\"accountId\\\":1011,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"12345\\\",\\\"name\\\":\\\"kirankUMAR J\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"JkiranKUMAR@gmail.com\\\"},{\\\"accountId\\\":1012,\\\"gender\\\":\\\"male\\\",\\\"maritalStatus\\\":\\\"No\\\",\\\"phone\\\":\\\"12345\\\",\\\"name\\\":\\\"kirankUMAR J\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"JkiranKUMAR@gmail.com\\\"},{\\\"accountId\\\":1013,\\\"gender\\\":\\\"Male\\\",\\\"maritalStatus\\\":\\\"Married\\\",\\\"phone\\\":\\\"9000000001\\\",\\\"name\\\":\\\"Siva\\\",\\\"\u00A0dateOfBirth\\\":null,\\\"email\\\":\\\"sivaram@gmail.com\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#b1772058-2058-4b04-b85c-72c1d42bd1b7">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="meta"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="meta"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

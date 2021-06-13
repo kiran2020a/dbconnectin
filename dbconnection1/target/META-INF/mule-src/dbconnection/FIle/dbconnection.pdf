@@ -1,0 +1,119 @@
+[
+  {
+    "accountId": 1001,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "123457892",
+    "name": "kiran",
+    " dateOfBirth": null,
+    "email": "kiran@gmail.com"
+  },
+  {
+    "accountId": 1002,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "12345789",
+    "name": "kirank",
+    " dateOfBirth": null,
+    "email": "kiranK@gmail.com"
+  },
+  {
+    "accountId": 1003,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "1234578",
+    "name": "kirankU",
+    " dateOfBirth": null,
+    "email": "kiranKU@gmail.com"
+  },
+  {
+    "accountId": 1004,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "123457",
+    "name": "kirankUM",
+    " dateOfBirth": null,
+    "email": "kiranKU@gmail.com"
+  },
+  {
+    "accountId": 1005,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "12345",
+    "name": "kirankUMA",
+    " dateOfBirth": null,
+    "email": "kiranKUM@gmail.com"
+  },
+  {
+    "accountId": 1006,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "12345",
+    "name": "kirankUMAR",
+    " dateOfBirth": null,
+    "email": "kiranKUMAR@gmail.com"
+  },
+  {
+    "accountId": 1007,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "12345",
+    "name": "kirankUMAR",
+    " dateOfBirth": null,
+    "email": "kiranKUMAR@gmail.com"
+  },
+  {
+    "accountId": 1008,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "12345",
+    "name": "kirankUMAR",
+    " dateOfBirth": null,
+    "email": "kiranKUMAR@gmail.com"
+  },
+  {
+    "accountId": 1009,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "12345",
+    "name": "kirankUMAR J",
+    " dateOfBirth": null,
+    "email": "JkiranKUMAR@gmail.com"
+  },
+  {
+    "accountId": 1010,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "12345",
+    "name": "kirankUMAR J",
+    " dateOfBirth": null,
+    "email": "JkiranKUMAR@gmail.com"
+  },
+  {
+    "accountId": 1011,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "12345",
+    "name": "kirankUMAR J",
+    " dateOfBirth": null,
+    "email": "JkiranKUMAR@gmail.com"
+  },
+  {
+    "accountId": 1012,
+    "gender": "male",
+    "maritalStatus": "No",
+    "phone": "12345",
+    "name": "kirankUMAR J",
+    " dateOfBirth": null,
+    "email": "JkiranKUMAR@gmail.com"
+  },
+  {
+    "accountId": 1013,
+    "gender": "Male",
+    "maritalStatus": "Married",
+    "phone": "9000000001",
+    "name": "Siva",
+    " dateOfBirth": null,
+    "email": "sivaram@gmail.com"
+  }
+]
